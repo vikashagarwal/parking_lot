@@ -39,9 +39,10 @@ def execute input
 		puts "Slot No. \tRegistration No \tColour"
 		@parking_lot.map{|key, value| puts "#{key} \t\t #{value[0]} \t\t #{value[1]}"}
 	when 'registration_numbers_for_cars_with_colour'
-		puts @parking_lot.values.group_by{|license, color| color}[input[1]].map(&:first).join(' ')
+		puts @parking_lot.values.group_by{|license, color| color}[input[1]].map(&:first).join(' ') rescue puts 'Not Found'
 	when 'slot_numbers_for_cars_with_colour'
-		puts @parking_lot.select{|k,j| j[1] == input[1]}.keys.join(' ')
+		slot_numbers = @parking_lot.select{|k,j| j[1] == input[1]}.keys.join(' ')
+		puts slot_numbers.empty? ? 'Not Found' : slot_numbers
 	when 'slot_number_for_registration_number'
 		puts @parking_lot.select{|k,j| j[0] == input[1]}.keys.first || 'Not Found'
 	else
